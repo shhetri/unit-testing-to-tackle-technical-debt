@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>How we used unit testing to tackle technical debt</title>
+
+		<meta name="description" content="A talk on how we use unit testing to tackle technical debt">
+		<meta name="author" content="Sumit Chhetri">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/white.css" id="theme">
+		<link rel="stylesheet" href="css/custom.css">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section id="cover">
+						<h2>How we use unit testing to tackle technical debt</h2> 
+						<span id="date">Feb 25, 2016</span>
+						<div id="footer">
+							Sumit Chhetri <br>
+							YoungInnovations
+						</div>
+				</section>
+
+				<section id="about-me">
+						<p>About Me</p>
+						<div id="pp">
+							<img src="images/sumit-chhetri.jpg" id="profile-img">
+							<br>
+							<div id="social-info">
+								<div id="email">
+									<span><img src="images/email.png"></span><a href="mailto:er.sumit.chhetri@gmail.com">er.sumit.chhetri@gmail.com</a>
+								</div>
+								<div id="twitter">
+									<span><img src="images/twitter.png"></span><a href="https://twitter.com/@shhetri">shhetri</a>
+								</div>
+							</div>	
+						</div>
+						<div id="info">
+							<ul>
+								<li>Sumit Chhetri</li>
+								<li>Senior Software Engineer</li>
+								<li>YoungInnovations Pvt. Ltd</li>
+							</ul>
+						</div>
+				</section>
+
+				<section id="outline">
+					<h3>Outline</h3>
+					<ul>
+						<li>Introduction to Technical Debt</li>
+						<li>Intorduction to Unit Testing</li>
+						<li>How Agile and Unit Testing tackles Technical Debt</li>
+						<li>Automated Testing And Continuous Integration (CI)</li>
+						<li>Some tips on writing testable code</li>
+					</ul>
+				</section>
+				<section id="technical-debt-slide-1">
+				<h3>Technical Debt</h3>
+					<div class="technical-debt-explanation">
+						As a change is started on a codebase, there is often the need to make other coordinated changes at the same time in other parts of the codebase or documentation. The other required, but uncompleted changes, are considered debt that must be paid at some point in the future.
+						<p><u>Some definitions</u></p>
+						<ul>
+							<li>Technical debt is the difference between what was promised and what was actually delivered.</li>
+							<li>In open source software, postponing sending local changes to the upstream project is a technical debt.</li>
+							<li>Shipping first time code is like going into technical debt.</li>
+							<li>Any refactoring you postpone is technical debt.</li>
+							<li>Any workaround, temporary fix, TODO, unmerged branch, untested code is considered as technical debt.</li>
+						</ul>
+					</div>
+				</section>
+				<section id="technical-debt-slide-2">
+					<h3>Technical Debt</h3>
+					<p>Traditional software programs have a phase-based approach to development: feature development, alpha, beta, and golden master (GM).</p>
+					<p>
+						<img src="images/technical-debt.png">
+						<br>
+						<span class="source">source : <a href="https://www.atlassian.com/agile/technical-debt">https://www.atlassian.com</a></span>
+					</p>
+				</section>
+				<section id="technical-debt-slide-3">
+					<h3>Technical Debt</h3>
+					<ul class="technical-debt-explanation">
+						<li>Each release begins with a phase where new features are built, and (ideally) residual issues left over from the last released are addressed (does it??).</li>
+						<li>The development cycle reaches "alpha" when each feature is implemented and ready for testing.</li>
+						<li>Beta hits when enough bugs have been fixed to enable customer feedback.</li>
+						<li>Unfortunately, while the team is busy trying to fix enough bugs to reach beta, new bugs appear.</li>
+						<li>It's a chronic case of whack-a-mole: fix one bug, and two more pop up.</li>
+						<li>Finally, the release hits the golden master milestone when there are zero open bugs.</li>
+						<li>"Zero open bugs" is usually achieved by fixing some known issues, and deferring the rest (most?) to the next release.</li>
+						<li>As the bug count grows, tackling it becomes increasingly painful–resulting in a vicious death-spiral of technical debt.</li>
+					</ul>
+				</section>
+
+				<section id="technical-debt-slide-4">
+					<h3>Technical Debt</h3>
+					<div class="technical-debt-explanation">
+						<p>And the result!!!</p>	
+						<img src="images/technical-debt-effect-1.jpg">
+						<br>
+						<span class="source">source : <a href="http://www.ruthmalan.com/Journal/2013/2013JournalMarch.htm">http://www.ruthmalan.com</a></span>
+					</div>
+				</section>
+				<section id="technical-debt-slide-5">
+					<h3>Technical Debt</h3>
+					<div class="technical-debt-explanation">
+						<p>And Ultimately</p>
+						<div>
+							<img src="images/technical-debt-effect-2.jpg" height="360px">
+							<span class="source">source : <a href="http://www.slideshare.net/GuyRoyse/the-code-christmas-tree-selling-the-investment-for-technical-debt">http://www.slideshare.net</a></span>
+						</div>
+						<div>
+							<img src="images/technical-debt-effect-3.gif" height="360px">
+							<span class="source">source : <a href="http://devopsreactions.tumblr.com/post/124056070020/when-a-bug-you-fixed-gets-re-introduced">http://devopsreactions.tumblr.com/</a></span>
+						</div>
+					</div>
+				</section>
+				<section id="unit-testing-slide-1">
+					<h3>Unit Testing</h3>
+					<div class="unit-testing-explanation">
+						<p><u>Testing</u></p>
+						<ul>
+							<li>Testing is executing a system in order to identify any gaps, errors, or missing requirements in contrary to the actual requirements.</li>
+							<li>It is a measure to identify if the actual output of the system is deviated from the desired output.</li>
+							<li>We can manually test the system or automate it.</li>
+						</ul>
+						<div>
+						<p><u>Test Pyramid</u></p>
+							<img src="images/test-pyramid.png" width="450px"><br>
+							<span class="source">source : <a href="http://martinfowler.com/bliki/TestPyramid.html">http://martinfowler.com</a></span>
+						</div>
+						<div>
+							<img src="">
+						</div>
+					</div>
+				</section>
+				<section id="unit-testing-slide-2">
+					<h3>Unit Testing</h3>
+					<div class="unit-testing-explanation">
+						<ul>
+							<li>Unit testing is a methodology where individual units of software, associated data, and usage procedures are tested to determine whether they operate correctly.</li>
+							<li>The unit is usually a small piece of code—for example, a single function.</li>
+							<li>The unit test is a short function that tests the behavior of the unit that produces a pass/fail result.</li>
+							<li>This is achieved by performing the tested function on a known value with a single correct result.</li>
+							<li>Unit tests often use mock objects to simulate the behavior of dependencies in a predictable way.</li>
+							<li>The main purpose of unit testing is to allow developers to identify as many problems as possible at the development stage and to do it in an automated, repeatable fashion that can be applied for every code change.</li>
+							<li>This makes developers directly responsible for producing working code, even before it reaches the quality assurance team.</li>
+							<li>It is very fast.</li>
+						</ul>
+					</div>
+				</section>
+				<section id="unit-testing-and-agile">
+					<h3>Unit Testing And Agile</h3>
+					<div class="unit-testing-explanation">
+						<p>I think you can not be truly agile without unit testing.</p>
+						<p><u>Two of the Principles behind Agile Manifesto</u></p>
+						<ul>
+							<li>Welcome changing requirements, even late in development. Agile processes harness change for the customer's competitive advantage.</li>
+							<li>Deliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.</li>
+						</ul>
+						<p><u>Benifits of Unit Testing</u></p>
+						<ul>
+							<li>
+								Unit testing allows you to make code changes while remaining confident that they will not break existing functionality and that the major part of new functionality will work on first delivery.
+							</li>
+							<li>
+								This enables frequent, timely delivery of working software, which in turn enables swift response to changes in requirements.
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section id="tackle-technical-debt-with-unit-testing">
+					<h3>Tackle Technical Debt with Agile and Unit Testing</h3>
+					<div class="unit-testing-explanation">
+						<ul>
+							<li>Agile bakes quality into the iterative development approach so the team can maintain a consistent level quality release after release.</li>
+							<li>If a feature isn't complete, it doesn't ship.</li>
+							<li>Agile teams define "complete" as ready to release, which means developers don't move on to the next story or feature until their current item is practically in customers' hands. </li>
+							<li>The master branch of the code base is always ready to ship.</li>
+							<li>So new features begin their lives on a feature branch containing code for the feature itself, plus it's automated tests.</li>
+							<li>Once the feature is complete, and the automated tests pass, the branch can then be merged up into master.</li>
+							<li>Because the quality bar is always fixed (and fixed high), technical debt stays under control.</li>
+						</ul>
+					</div>
+				</section>
+				<section id="automated-testing-and-ci">
+					<h3>Automated Testing And Continuous Integration (CI)</h3>
+					<div class="unit-testing-explanation">
+						<ul>
+							<li>A development practice that enables developers to integrate code several times a day.</li>
+							<li>It builds the software at each push and also runs the automated tests.</li>
+							<li>It allows teams to detect problems early.</li>
+							<li>The goal is to provide rapid feedback incase a defect is introduced.</li>
+							<li>If the software builds successfully and all the test passes, the code it integrated to the master branch.</li>
+							<li>It ensures on a continuous basis that you have a working product.</li>
+							<li>Some CI servers : 
+								<ul>
+									<li><a href="https://jenkins-ci.org/">Jenkins</a></li>
+									<li><a href="https://travis-ci.org/">Travis Ci</a></li>
+									<li><a href="https://circleci.com/">CircleCi</a></li>
+									<li>There are more...</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
+				<section id="tips-on-writing-testable-code">
+					<h3>Some tips on writing testable code</h3>
+					<div class="unit-testing-explanation">
+						<ul>
+							<li>Follow <a href="https://en.wikipedia.org/wiki/Single_responsibility_principle">Single Responsibility Principle</a></li>
+							<li>Write expressive code. One should be able to understand the behaviour of the method by it's name and not have to read the whole method.</li>
+							<li>Use <a href="https://en.wikipedia.org/wiki/Dependency_injection">Dependency Injection.</a> It helps in making the classes loosely coupled.</li>
+							<li>Do not use non-deterministic behaviour in your code. It makes the code untestable. Like, using date/time function in the method.</li>
+							<li>Write clean code. Go through <a href="http://shhetri.github.io/clean-code">clean-code</a> presentation to read more on how to write clean and testable code.</li>
+						</ul>
+					</div>
+				</section>
+				<section id="questions">
+					<h3>Any Question??</h3>
+					<div>
+						<img src="images/any-questions.jpg">
+					</div>
+				</section>
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				],
+				keyboard: {
+					    39: 'next',
+					    37: 'prev'
+					}
+			});
+
+		</script>
+
+	</body>
+</html>

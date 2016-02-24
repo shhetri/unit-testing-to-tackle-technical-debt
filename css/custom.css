@@ -1,0 +1,83 @@
+.reveal h2 {
+    font-weight: bold;
+}
+
+.reveal h3 {
+  text-transform: initial;
+  font-weight: bold;
+}
+
+.reveal h4 {
+  text-transform: initial;
+  font-weight: bold;
+}
+
+#cover #date {
+	font-weight: normal;
+	font-size: 0.5em;
+	text-transform: initial;
+}
+
+#cover #footer {
+	font-size: 0.7em;
+	font-weight: normal;
+	text-transform: initial;
+}
+
+#about-me, #outline {
+	font-size: 0.9em;
+}
+
+#about-me p {
+	font-size: 1.2em;
+}
+
+#about-me #info, #about-me #pp {
+	float: left;
+	width: 50%;
+}
+
+#about-me #info {
+	text-align: left;
+}
+
+#about-me #pp img#profile-img{
+	margin: 0px;
+	height: 240px;
+	width: 220px;
+}
+
+#about-me #social-info {
+	font-size: 0.7em;
+	text-align: left;
+}
+
+#about-me #social-info div {
+	margin-left: 120px;
+}
+
+#about-me #social-info img {
+	border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0 6px 0 0;
+    position: relative;
+    top: 6px;
+}
+
+#technical-debt-slide-5 {
+	float: left;
+}
+
+#technical-debt-slide-5 .technical-debt-explanation div {
+	float: left;
+	width: 46%;
+}
+
+.technical-debt-explanation, .unit-testing-explanation {
+	font-size: 0.6em !important;
+}
+
+.source {
+	font-size: 14px !important;
+}
