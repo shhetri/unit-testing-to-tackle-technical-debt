@@ -32,9 +32,12 @@
 	font-size: 1.2em;
 }
 
+#about-me{
+	text-align: center;
+}
+
 #about-me #info, #about-me #pp {
-	float: left;
-	width: 50%;
+
 }
 
 #about-me #info {
@@ -44,16 +47,20 @@
 #about-me #pp img#profile-img{
 	margin: 0px;
 	height: 240px;
-	width: 220px;
+	width: 240px;
+	border-radius: 50%;
+	object-fit: cover;
 }
 
 #about-me #social-info {
 	font-size: 0.7em;
-	text-align: left;
+	text-align: center;
+	margin-top: 20px;
 }
 
-#about-me #social-info div {
-	margin-left: 120px;
+#about-me #social-info > div {
+	display: inline-block;
+	margin-right: 20px;
 }
 
 #about-me #social-info img {
@@ -65,11 +72,25 @@
     top: 6px;
 }
 
-#technical-debt-slide-5 {
+#about-me #info{
+	text-align: center;
+	margin-top: 30px;
+}
+#about-me #info ul{
+	list-style: none;
+	margin: 0;
+	font-size: 22px;
+	line-height: 30px;
+}
+#about-me #info ul li{
+	text-align: center;
+}
+
+#technical-debt-slide-11 {
 	float: left;
 }
 
-#technical-debt-slide-5 .technical-debt-explanation div {
+#technical-debt-slide-11 div {
 	float: left;
 	width: 46%;
 }
